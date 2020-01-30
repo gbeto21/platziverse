@@ -1,0 +1,14 @@
+{
+  "name": "platziverse-db",
+  "version": "1.0.0",
+  "description": "A simple Iot Platform - DB Module",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "author": "Alberto Gonález Balderas",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^14.3.1"
+  }
+}
