@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "DEBUG=platziverse:* node setup.js",
-    "test": "DEBUG=platziverse:* ava --verbose",
+    "test": "DEBUG=platziverse:* nyc --reporter=lcov ava --verbose",
     "lint": "standard",
     "fix-lint": "npm run lint -- --fix"
   },
@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "ava": "^3.1.0",
+    "nyc": "^15.0.0",
     "sqlite3": "^4.1.1",
     "standard": "^14.3.1"
   },

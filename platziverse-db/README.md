@@ -22,6 +22,7 @@ Dependencias:
 - ava
 - defaults
 - sqlite3
+- nyc
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix
