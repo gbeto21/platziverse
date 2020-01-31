@@ -17,6 +17,8 @@ Dependencias:
 - pg
 - pg-hstore
 - debug
+- inquirer
+- chalk
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix
