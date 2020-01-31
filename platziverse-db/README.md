@@ -23,6 +23,8 @@ Dependencias:
 - defaults
 - sqlite3
 - nyc
+- sinon (updated: "sinon": "^8.1.1",)
+- proxyquire
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix
