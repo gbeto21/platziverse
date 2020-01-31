@@ -19,6 +19,9 @@ Dependencias:
 - debug
 - inquirer
 - chalk
+- ava
+- defaults
+- sqlite3
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix

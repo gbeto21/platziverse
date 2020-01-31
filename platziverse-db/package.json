@@ -5,17 +5,21 @@
   "main": "index.js",
   "scripts": {
     "setup": "DEBUG=platziverse:* node setup.js",
+    "test": "DEBUG=platziverse:* ava --verbose",
     "lint": "standard",
     "fix-lint": "npm run lint -- --fix"
   },
   "author": "Alberto Gonález Balderas",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^3.1.0",
+    "sqlite3": "^4.1.1",
     "standard": "^14.3.1"
   },
   "dependencies": {
     "chalk": "^3.0.0",
     "debug": "^4.1.1",
+    "defaults": "^1.0.3",
     "inquirer": "^7.0.4",
     "pg": "^7.18.1",
     "pg-hstore": "^2.3.3",
