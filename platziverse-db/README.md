@@ -11,3 +11,11 @@ setupDatabase(config).then(db=>{
 }).catch(err=> console.error(err))
 
 ```
+
+Dependencias:
+- sequelize
+- pg
+- pg-hstore
+
+Comandos
+- Corregir errores de codigo: npm run lint -- --fix
