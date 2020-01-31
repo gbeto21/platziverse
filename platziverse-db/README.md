@@ -16,6 +16,7 @@ Dependencias:
 - sequelize
 - pg
 - pg-hstore
+- debug
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix
