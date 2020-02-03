@@ -7,7 +7,7 @@
     "setup": "DEBUG=platziverse:* node setup.js",
     "test": "DEBUG=platziverse:* nyc --reporter=lcov ava --verbose",
     "lint": "standard",
-    "fix-lint": "npm run lint -- --fix"
+    "lint-fix": "npm run lint -- --fix"
   },
   "author": "Alberto Gonález Balderas",
   "license": "MIT",
