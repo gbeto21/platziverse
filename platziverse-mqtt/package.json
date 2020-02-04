@@ -8,6 +8,7 @@
     "start": "NODE_ENV=production node server.js",
     "start-dev": "DEBUG=platziverse:* nodemon server.js",
     "lint": "standard",
+    "lint-fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,6 +21,7 @@
     "chalk": "^2.1.0",
     "debug": "^3.0.0",
     "mosca": "^2.5.2",
+    "platziverse-db": "file:../platziverse-db",
     "redis": "^2.8.0"
   }
 }
