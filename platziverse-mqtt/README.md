@@ -38,3 +38,9 @@
     timestamp //generar caundo creamos el mensaje
 }
 ```
+
+//Dependencias:
+//debug
+//mosca
+//redis
+//chalk
