@@ -1,9 +1,4 @@
-# platziverse-agent
-
-## Usage
-
-```js
-const PlatziverseAgent = require("platziverse-agent");
+const PlatziverseAgent = require("../");
 
 const agent = new PlatziverseAgent({
   name: "myapp",
@@ -19,11 +14,11 @@ agent.addMetric("promiseMetric", function getRandomPromise() {
   return Promise.resolve(Math.random());
 });
 
-agent.addMetric('callbackMetric', function getRandomCallback (callback){
-  setTimeout(()=>{
-    callback(null, Math.random())
-  }, 1000)
-})
+agent.addMetric("callbackMetric", function getRandomCallback(callback) {
+  setTimeout(() => {
+    callback(null, Math.random());
+  }, 10000);
+});
 
 agent.connect();
 
@@ -39,12 +34,8 @@ agent.on("agent/message", payload => {
   console.log(payload);
 });
 
+function handler(payload) {
+  console.log(payload);
+}
+
 setTimeout(() => agent.disconnect(), 20000);
-```
-
-dependencies:
-
-- mqtt
-- debug
-- defaults
-- uuid
