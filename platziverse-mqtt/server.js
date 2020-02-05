@@ -33,38 +33,44 @@ const clients = new Map();
 let Agent, Metric;
 
 server.on("clientConnected", client => {
-  debug(`Client Connected: ${client.id}`);
+  debug(`<-----Client Connected----->: ${client.id}`);
   clients.set(client.id, null);
+  debug(`<-----Clients saved----->: ${clients}`);
 });
 
-server.on("clientDisconnected", async client => {
-  debug(`Client Disconnected: ${client.id}`);
+server.on("clientDisconnected", async (client) => {
+  debug(`1. Client Disconnected: ${client.id}`);
+
   const agent = clients.get(client.id);
+  debug(`2. Agent fountd: ${agent}`);
 
   if (agent) {
     agent.connected = false;
+    try {
+      debug(`3. Call upate agent`);
+      await Agent.createOrUpdate(agent);
+    } catch (error) {
+      debug(`4. Catch error`);
+      return handleError(error);
+    }
+
+    //Delete agent from clients list
+    clients.delete(client.id);
+
+    debug(`5. Call publish`);
+    server.publish({
+      topic: "agent/disconnected",
+      payload: JSON.stringify({
+        agent: {
+          uuid: agent.uuid
+        }
+      })
+    });
+
+    debug(
+      `Client (${clientid}) associated to Agent (${agent.uuid}) market as disconnected`
+    );
   }
-
-  try {
-    await Agent.createOrUpdate(agent);
-  } catch (error) {
-    return handleError(error);
-  }
-
-  //Delete agent from clients list
-  clients.delete(client.id);
-
-  server.publish({
-    topic: "agent/disconnected",
-    payload: JSON.stringify({
-      agent: {
-        uuid: agent.uuid
-      }
-    })
-  });
-  debug(
-    `Client (${clientid}) associated to Agent (${agent.uuid}) market as disconnected`
-  );
 });
 
 server.on("published", async (packet, client) => {
@@ -85,6 +91,7 @@ server.on("published", async (packet, client) => {
         let agent;
         try {
           agent = await Agent.createOrUpdate(payload.agent);
+          debug(`***-> Agent created or updated: ${agent}<-***`);
         } catch (error) {
           return handleError(error);
         }
