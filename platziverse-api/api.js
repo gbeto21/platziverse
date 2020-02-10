@@ -8,6 +8,7 @@ const api = express.Router();
 api.get("/agents", (req, res) => {
   debug("A request has come to /agent");
   res.send({});
+  // res.status(201).send({});
 });
 api.get("/agent/:uuid", (req, res, next) => {
   const { uuid } = req.params;
