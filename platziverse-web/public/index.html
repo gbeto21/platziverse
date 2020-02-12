@@ -14,12 +14,23 @@
         var socket = io()
 
         socket.on('agent/message', function (payload) {
-            console.log(payload)
+            console.log('agent/message', payload)
         })
 
-        setTimeout(function () {
-            socket.emit('agent/message', 'hello Server.')
-        }, 5000)
+        socket.on('agent/connected', function (payload) {
+            console.log('agnt/connected', payload);
+
+        })
+
+        socket.on('agent/disconnected', function (payload) {
+            console.log('agnt/disconnected', payload);
+
+        })
+
+        
+        // setTimeout(function () {
+        //     socket.emit('agent/message', 'hello Server.')
+        // }, 5000)
     </script>
 </body>
 

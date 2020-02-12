@@ -10,18 +10,16 @@ const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 8080;
 const io = socketio(server);
+const PlatziverseAgent = require("platziverse-agent");
+const agent = new PlatziverseAgent();
+const { pipe } = require("./utils");
 
 app.use(express.static(path.join(__dirname, "public")));
 
 io.on("connect", socket => {
   debug(`Connected ${socket.id}`);
-  socket.on("agent/message", payload => {
-    console.log(payload);
-  });
 
-  setInterval(() => {
-    socket.emit("agent/message", { agent: "xxx-yyy" });
-  }, 2000);
+  pipe(agent, socket);
 });
 
 function handleFatalError(err) {
@@ -37,4 +35,6 @@ server.listen(port, () => {
   console.log(
     `${chalk.green("[platziverse-web]")} server listening on port ${port}`
   );
+
+  agent.connect();
 });
