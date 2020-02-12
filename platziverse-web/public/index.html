@@ -5,10 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Platziverse</title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 </head>
 
 <body>
     <h1>Platziverse</h1>
+    <script type="text/javascript">
+        var socket = io()
+
+        socket.on('agent/message', function (payload) {
+            console.log(payload)
+        })
+
+        setTimeout(function () {
+            socket.emit('agent/message', 'hello Server.')
+        }, 5000)
+    </script>
 </body>
 
 </html>

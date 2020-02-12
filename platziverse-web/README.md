@@ -3,3 +3,4 @@
 - express
 - debug
 - chalk
+- socket.io

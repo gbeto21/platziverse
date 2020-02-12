@@ -1,16 +1,28 @@
 "use strict";
 
-const debut = require("debug")("platziverse:web");
+const debug = require("debug")("platziverse:web");
 const http = require("http");
 const path = require("path");
 const express = require("express");
 const chalk = require("chalk");
-
+const socketio = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 8080;
+const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, "public")));
+
+io.on("connect", socket => {
+  debug(`Connected ${socket.id}`);
+  socket.on("agent/message", payload => {
+    console.log(payload);
+  });
+
+  setInterval(() => {
+    socket.emit("agent/message", { agent: "xxx-yyy" });
+  }, 2000);
+});
 
 function handleFatalError(err) {
   console.error(`${chalk.red("[Fatal error]")} ${err.message}`);
