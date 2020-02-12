@@ -4,3 +4,5 @@ dependencias:
 - express-asyncify
 - sinon
 - proxyquire
+- jsonwebtoken
+- express-jwt

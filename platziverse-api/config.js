@@ -1,5 +1,5 @@
 "use strict";
-const debug = require('debug')('platziverse:api:db')
+const debug = require("debug")("platziverse:api:db");
 
 module.exports = {
   db: {
@@ -8,6 +8,9 @@ module.exports = {
     password: process.env.DB_PASS || "platzi",
     host: process.env.DB_HOST || "localhost",
     dialect: "postgres",
-    loggin: s => debug(s),
+    loggin: s => debug(s)
+  },
+  auth: {
+    secret: process.env.SECRET || "platzi"
   }
 };
