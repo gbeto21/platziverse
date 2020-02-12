@@ -1,0 +1,5 @@
+- standard
+- nodemon
+- express
+- debug
+- chalk
