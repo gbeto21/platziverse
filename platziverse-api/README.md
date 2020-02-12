@@ -6,3 +6,4 @@ dependencias:
 - proxyquire
 - jsonwebtoken
 - express-jwt
+- express-jwt-permissions

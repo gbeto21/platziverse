@@ -5,6 +5,7 @@ const express = require("express");
 const db = require("platziverse-db");
 const config = require("./config");
 const auth = require("express-jwt");
+const guard = require("express-jwt-permissions")()
 const asyncify = require("express-asyncify");
 const api = asyncify(express.Router());
 let services, Agent, Metric;
@@ -60,25 +61,30 @@ api.get("/agent/:uuid", async (req, res, next) => {
   res.send(agent);
 });
 
-api.get("/metrics/:uuid", async (req, res, next) => {
-  const { uuid } = req.params;
+api.get(
+  "/metrics/:uuid",
+  auth(config.auth),
+  guard.check(["metric:read"]),
+  async (req, res, next) => {
+    const { uuid } = req.params;
 
-  debug(`request to /metrics/${uuid}`);
+    debug(`request to /metrics/${uuid}`);
 
-  let metrics = [];
+    let metrics = [];
 
-  try {
-    metrics = await Metric.getByAgenteUuid(uuid);
-  } catch (error) {
-    next(error);
+    try {
+      metrics = await Metric.getByAgenteUuid(uuid);
+    } catch (error) {
+      next(error);
+    }
+
+    if (!metrics || metrics.length === 0) {
+      return next(new Error(`Metrics not found for agent with uuid ${uuid}`));
+    }
+
+    res.send(metrics);
   }
-
-  if (!metrics || metrics.length === 0) {
-    return next(new Error(`Metrics not found for agent with uuid ${uuid}`));
-  }
-
-  res.send(metrics);
-});
+);
 
 api.get("/metrics/:uuid/:type", async (req, res, next) => {
   const { uuid, type } = req.params;
