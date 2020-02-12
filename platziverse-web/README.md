@@ -4,3 +4,6 @@
 - debug
 - chalk
 - socket.io
+- request-promise-native
+- request
+- express-asyncify

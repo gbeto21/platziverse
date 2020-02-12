@@ -4,22 +4,35 @@ const debug = require("debug")("platziverse:web");
 const http = require("http");
 const path = require("path");
 const express = require("express");
+const asyncify = require("express-asyncify");
 const chalk = require("chalk");
 const socketio = require("socket.io");
-const app = express();
+const app = asyncify(express());
 const server = http.createServer(app);
 const port = process.env.PORT || 8080;
 const io = socketio(server);
 const PlatziverseAgent = require("platziverse-agent");
 const agent = new PlatziverseAgent();
 const { pipe } = require("./utils");
+const proxy = require("./proxy");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/", proxy);
 
 io.on("connect", socket => {
   debug(`Connected ${socket.id}`);
 
   pipe(agent, socket);
+});
+
+app.use((err, req, res, next) => {
+  debug(`Error: ${err.message}`);
+
+  if (err.message.match(/not found/)) {
+    return res.status(404).send({ error: err.message });
+  }
+
+  res.status(500).send({ error: err.message });
 });
 
 function handleFatalError(err) {
