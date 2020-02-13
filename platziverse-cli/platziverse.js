@@ -2,17 +2,32 @@
 
 'use strict'
 
-// const minimist = require('minimist')
+/* eslint new-cap: "off" */
+/* eslint no-unused-vars: "off"*/ 
+const blessed = require('blessed')
+const contrib = require('blessed-contrib')
 
-// console.log('Hello platziverse!');
-// const args = minimist(process.argv)
-// console.log(args.host);
-// console.log(args.name);
+const screen = blessed.screen()
 
-const args = require('args')
-args
-    .option('port', 'The port on wich the app will be running',3000)
-    .option('reload', 'Enable/disable livereloading')
-    .command('serve', 'Serve your static site', ['s'])
+const grid = new contrib.grid({
+    rows:1,
+    cols:4,
+    screen
+})
 
-const flags = args.parse(process.argv)
+const tree = grid.set(0,0, 1, 1, contrib.tree, {
+    label: 'Connected Agents'
+} )
+
+const line = grid.set(0,1,1,3, contrib.line, {
+    label: 'Metric',
+    showLegend: true,
+    minY: 0,
+    xPadding: 5
+})
+
+screen.key(['escape', 'q', 'C-c'], (ch,key)=>{
+    process.exit(0)
+})
+
+screen.render()
