@@ -9,3 +9,4 @@
 - express-asyncify
 - moment
 - random-material-color 
+- socket.io-client
