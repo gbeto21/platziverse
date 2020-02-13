@@ -25,6 +25,7 @@ Dependencias:
 - nyc
 - sinon (updated: "sinon": "^8.1.1",)
 - proxyquire
+- longjohn
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix
