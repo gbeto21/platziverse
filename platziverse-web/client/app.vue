@@ -1,5 +1,6 @@
 <template>
   <div>
+    <agent uuid="" :socket="socket"></agent>
     <metric 
     uuid="......" 
     type ="callbackMetric"
