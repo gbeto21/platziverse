@@ -10,3 +10,6 @@
 - moment
 - random-material-color 
 - socket.io-client
+- envify
+- uglify -s
+- babel-preset-stage-3
