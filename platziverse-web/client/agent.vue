@@ -138,9 +138,18 @@ try {
 }
 
 this.metrics = metrics
-
+this.startRealTime()
 },
 
+startRealTime(){
+const {uuid,socket} = this
+socket.on('agent/disconnecte', payload =>{
+  if(payload.agent.uuid === uuid)
+  {
+    this.connected =false
+  }
+})
+},
 
     toggleMetrics() {
       this.showMetrics = this.showMetrics ? false : true
