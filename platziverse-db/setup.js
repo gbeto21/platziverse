@@ -4,15 +4,12 @@ const debug = require("debug")("platziverse:db:setup");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
 const db = require("./");
-
+const minimist = require('minimist')
 const prompt = inquirer.createPromptModule();
+const args = minimist(process.argv)
 
 async function setup() {
-  const flagYes = process.argv.indexOf("yes");
-
-  if (flagYes) {
-    deleteDataBase();
-  } else {
+  if(!args.yes){
     const answer = await prompt([
       {
         type: "confirm",
@@ -20,10 +17,18 @@ async function setup() {
         message: "This will destroy the database, Are your sure? "
       }
     ]);
-
+  
     if (!answer.setup) {
       return console.log("Nothing happened :) ");
     }
+
+  }
+
+  const flagYes = process.argv.indexOf("yes");
+
+  if (flagYes) {
+    deleteDataBase();
+  } else {
 
     deleteDataBase();
   }

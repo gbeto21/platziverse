@@ -26,6 +26,7 @@ Dependencias:
 - sinon (updated: "sinon": "^8.1.1",)
 - proxyquire
 - longjohn
+- minimist
 
 Comandos
 - Corregir errores de codigo: npm run lint -- --fix
